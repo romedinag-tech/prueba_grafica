@@ -76,6 +76,20 @@
   --grad-brand: linear-gradient(135deg, var(--live), var(--ref));
   --grad-panel: linear-gradient(180deg, var(--surface-1), var(--surface-2));
   --grad-shine: linear-gradient(180deg, rgba(255,255,255,.04) 0%, transparent 40%);
+
+  /* ── Serie categórica de gráficos (el JS la lee vía cssv) ── */
+  --c1:#34E1C4; --c2:#6C8FF5; --c3:#F4B740; --c4:#FF5D73; --c5:#a78bfa;
+  --c6:#22d3ee; --c7:#f472b6; --c8:#4ade80; --c9:#fb923c; --c10:#38bdf8;
+
+  /* ── Status (semáforo de KPI / badges de ratio) ── */
+  --good:#34d399; --warning:#fbbf24; --critical:#fb7185; --nodata:#94a1ba;
+
+  /* ── Dominio: tipos de infraestructura ── */
+  --infra-corredor:#ec4899; --infra-pistabus:#f5a524; --infra-exclusiva:#34d399;
+  --infra-mixto:#94a3b8; --infra-none:#64748b; --infra-efectivo:#e879f9;
+
+  /* ── Dominio: terciles NSE ── */
+  --nse-bajo:#fb923c; --nse-medio:#94a3b8; --nse-alto:#2dd4bf;
 }
 
 /* ─── Bridge: map new tokens → legacy variable names ─── */
@@ -169,6 +183,43 @@
   --ch-grid: #EDF1F6;
   --ch-axis: #7C8AA0;
   --ch-tip:  #FFFFFF;
+}
+
+/* ─── Tema de cliente DEMO — "Ámbar / Grafito" (dark cálido, acento oro): prueba de que la
+   misma data+scripts rinde con una cara completamente distinta. Se activa con data-theme="cliente-a". ─── */
+:root[data-theme="cliente-a"] {
+  /* Superficies — grafito cálido (café tostado), no negro-azulado */
+  --bg-void:   #12100E;  --bg-base:   #1A1714;
+  --surface-1: #221E19;  --surface-2: #2B2620;
+  --line:      #3A342B;  --line-soft: #241F19;
+  /* Texto — marfil cálido */
+  --text-hi:   #F4EEE3;  --text-mid:  #B6AB98;  --text-lo: #867B6A;
+  /* Señales — oro como acento primario (reemplaza el teal) */
+  --live:  #E0A836;  --ref:  #7FA8C9;  --warn: #E8944A;  --alert: #E5604D;
+  /* Status */
+  --good:#9CBF6A; --warning:#E0A836; --critical:#E5604D; --nodata:#8A8072;
+  /* Serie categórica — liderada por cálidos */
+  --c1:#E0A836; --c2:#7FA8C9; --c3:#E8944A; --c4:#E5604D; --c5:#B58BB0;
+  --c6:#5FB8A8; --c7:#D97CA0; --c8:#9CBF6A; --c9:#D98C5A; --c10:#6F9BD1;
+  /* Dominio */
+  --infra-corredor:#D97CA0; --infra-pistabus:#E8944A; --infra-exclusiva:#9CBF6A;
+  --infra-mixto:#9A8F7D; --infra-none:#6E6558; --infra-efectivo:#B58BB0;
+  --nse-bajo:#E8944A; --nse-medio:#9A8F7D; --nse-alto:#5FB8A8;
+  /* Superficies compuestas / bridge (rgba de --live = 224,168,54) */
+  --topbar: rgba(26,23,20,.92);  --hover: rgba(255,255,255,.04);  --chip: rgba(34,30,25,.7);
+  --glow1: rgba(224,168,54,.12);  --glow2: rgba(127,168,201,.08);
+  --live-tint: rgba(224,168,54,.12);  --live-border: rgba(224,168,54,.35);
+  --alert-tint: rgba(229,96,77,.12);  --warn-tint: rgba(232,148,74,.08);
+  --warn-border: rgba(232,148,74,.25);  --warn-text: #F0C98A;
+  --ico-bg: rgba(224,168,54,.10);  --subtle: rgba(255,255,255,.05);
+  --ref-tint: rgba(127,168,201,.14);  --track: var(--line-soft);
+  /* Marca cálida: oro → rosa */
+  --grad-brand: linear-gradient(135deg, #E0A836, #D97CA0);
+  --grad-panel: linear-gradient(180deg, var(--surface-1), var(--surface-2));
+  --grad-shine: linear-gradient(180deg, rgba(255,255,255,.04) 0%, transparent 40%);
+  --shadow-glow-live: 0 0 20px -4px rgba(224,168,54,.25);
+  /* Charts */
+  --ch-grid: var(--line-soft);  --ch-axis: var(--text-lo);  --ch-tip: var(--surface-2);
 }
 
 /* ─── Reduced motion ─── */

@@ -32,7 +32,7 @@ CITY.comunas=CITY.comunas||[]; CITY.comunasGeojson=CITY.comunasGeojson||"comunas
 CITY.live=!!CITY.live; CITY.liveBase=CITY.liveBase||""; CITY.voz=CITY.voz||{ejeSing:"eje",ejePlur:"ejes",EjePlur:"Ejes"};
 const _cap=t=>t?t.charAt(0).toUpperCase()+t.slice(1):t;
 const _liveUrl=n=> (CITY.live&&CITY.liveBase?CITY.liveBase:"data/")+n;
-const J = n => fetch(`data/${n}?v=204`).then(r=>{if(!r.ok)throw 0;return r.json();});
+const J = n => fetch(`data/${n}?v=205`).then(r=>{if(!r.ok)throw 0;return r.json();});
 // reloj en vivo (fecha + hora Chile) en el header — útil para las capturas
 function tickReloj(){
   const el = document.getElementById("hdr-reloj-txt"); if(!el) return;
@@ -59,8 +59,10 @@ let state = {comuna:"TODAS", linea:"TODAS", csDia:"L", csVar:"freq", mapMode:(CI
 let INFRAE=null, imap=null, infraChart=null, infraLayers=[], FLUJOEJES=null;   // observatorio de infraestructura
 let infraVelChart=null, infraExcChart=null, infraPerfilChart=null, VELEJE=null;   // velocidad física + excesos + perfil territorial por eje (v_1km)
 let EJEDIAG=null, ejeDiagLayers=[];   // diagnóstico: bloques (eslabones) que alimentan cada eje
-const ITIPO={"Corredor":"#ec4899","Pista Solo Bus":"#f5a524","Vía Exclusiva":"#34d399","Mixto":"#94a3b8","—":"#64748b"};
-const IEFECT="#e879f9";   // capa "ejes efectivos" (corredores reales dibujados a mano) — color propio
+/* lee un token CSS del tema activo (definido temprano para que la paleta de abajo lo use) */
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const ITIPO={"Corredor":cssv("--infra-corredor"),"Pista Solo Bus":cssv("--infra-pistabus"),"Vía Exclusiva":cssv("--infra-exclusiva"),"Mixto":cssv("--infra-mixto"),"—":cssv("--infra-none")};
+const IEFECT=cssv("--infra-efectivo");   // capa "ejes efectivos" (corredores reales dibujados a mano) — color propio
 const SHOW_EFECTIVOS=false;   // Carrera/PAC ya están en el plan → la capa efectivos quedó redundante; se oculta (reversible)
 let csChart, freqChart, linFreqChart, lineFreqHistChart, rankProgChart, lmap, baseLayers, routeLayer, comunaLayer, stopLayer, liveLayer, liveCanvas, coverLayer, coverCanvas, speedLegend, coverLegend;
 const LIVE_URL = _liveUrl("live.json");
@@ -80,7 +82,7 @@ const periodoLbl = p => (PERIODOS.find(x=>x[0]===p)||["","Agregado"])[1];
 const SENTIDOS = [["amb","Ambos"],["0","Ida"],["1","Regreso"]];
 const DET_TIPOS = [["cong","Congestión"],["par","Paraderos"]];
 const CONG_SUBS = [["prom","Promedio"],["crit","Día crítico"],["estab","Estabilidad"]];
-const nseColors = {0:"#fb923c", 1:"#94a3b8", 2:"#2dd4bf"};
+const nseColors = {0:cssv("--nse-bajo"), 1:cssv("--nse-medio"), 2:cssv("--nse-alto")};
 const nseLabel = n => n===0?"NSE bajo":n===1?"NSE medio":n===2?"NSE alto":"sin dato NSE";
 
 const CS_DIAS = [["L","Laboral"],["S","Sábado"],["D","Domingo"]];
@@ -99,8 +101,7 @@ function speedColor(v){
   return `hsl(${hue},72%,50%)`;
 }
 
-/* tema (claro/oscuro): lee variables CSS para que los charts ECharts sigan el tema */
-const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+/* tema (claro/oscuro): TH() para que los charts ECharts sigan el tema (cssv se define arriba) */
 const TH = () => ({tx:cssv("--tx"), mut:cssv("--muted"), axis:cssv("--ch-axis"), grid:cssv("--ch-grid"), tip:cssv("--ch-tip"), tipB:cssv("--line2"), font:cssv("--font-ui")||"IBM Plex Sans,system-ui,sans-serif"});
 function applyTheme(t){
   document.documentElement.dataset.theme = t;
@@ -1593,7 +1594,7 @@ function _renderInfraExc(ejeName){
   if(!lines.length || !meses.length){ wrap.style.display="none"; return; }
   wrap.style.display="";
   const th=TH();
-  const PAL=["#34E1C4","#6C8FF5","#F4B740","#FF5D73","#a78bfa","#22d3ee","#f472b6","#4ade80","#fb923c","#38bdf8"];
+  const PAL=["--c1","--c2","--c3","--c4","--c5","--c6","--c7","--c8","--c9","--c10"].map(cssv);
   const tot=L=>meses.reduce((s,m)=>s+((ve.exc[L]||{})[m]||0),0);
   const ord=lines.slice().sort((a,b)=>tot(b)-tot(a)).slice(0,10);
   const xlbl=meses.map(m=>m.slice(5)+"/"+m.slice(2,4));
@@ -1878,7 +1879,7 @@ const MXc = 111320*Math.cos(CITY.lat0*Math.PI/180);
 function chileHour(){ try{ if(LIVE&&LIVE.snapshot_utc){ return (new Date(LIVE.snapshot_utc).getUTCHours()+20)%24; } }catch(e){} return (new Date().getUTCHours()+20)%24; }
 function nearTerminal(lat,lon,L){ const tl=TLIN[L]; if(!tl||!tl.puntos) return false;
   for(const t of tl.puntos){ if(t.tipo!=="terminal") continue; const dy=(lat-t.lat)*110540, dx=(lon-t.lon)*MXc; if(dx*dx+dy*dy<=150*150) return true; } return false; }
-const semColor = r => r==null?"#94a1ba": r>=0.7?"#34d399": r>=0.4?"#fbbf24":"#fb7185";
+const semColor = r => r==null?cssv("--nodata"): r>=0.7?cssv("--good"): r>=0.4?cssv("--warning"):cssv("--critical");
 function renderOpNow(){
   const card=$("opnow-card"); if(!card) return;
   card.style.display="none"; return;   // ELIMINADO: recuadro "En calle/terminal/detenidos" (no sincronizado con los gauges de arriba, redundante)
