@@ -202,15 +202,38 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 
 /* ── Selector de modo (Operación/Infra/Demanda) como RIEL VERTICAL a la IZQUIERDA.
    initCityChrome mueve `.modo-bar` dentro del flex-row para temas de cliente. ── */
-:root[data-theme="cliente-a"] .modo-bar{flex:0 0 150px;width:150px;flex-direction:column;
+:root[data-theme="cliente-a"] .modo-bar{flex:0 0 232px;width:232px;flex-direction:column;
   justify-content:flex-start;align-items:stretch;border-bottom:none;
-  border-right:1px solid var(--line);padding:14px 11px;background:var(--surface-1)}
+  border-right:1px solid var(--line);padding:14px 12px;background:var(--surface-1);overflow-y:auto}
 :root[data-theme="cliente-a"] #modo-switch{flex-direction:column;width:100%;gap:6px;
   background:none;border:none;border-radius:0;padding:0}
 :root[data-theme="cliente-a"] #modo-switch button{justify-content:flex-start;padding:11px 13px;
   border-radius:9px;font-size:13.5px}
 :root[data-theme="cliente-a"] #modo-switch button.on{background:var(--live-tint);
   box-shadow:inset 3px 0 0 var(--live)}
+
+/* ── Navegación consolidada: Ciudad + Línea como acordeones bajo los modos ── */
+:root[data-theme="cliente-a"] .nav-accordions{margin-top:14px;padding-top:12px;
+  border-top:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+:root[data-theme="cliente-a"] .nav-sec-h{width:100%;display:flex;align-items:center;
+  justify-content:space-between;background:none;border:none;color:var(--text-mid);
+  font-family:var(--font-ui);font-weight:700;font-size:11px;letter-spacing:.11em;
+  text-transform:uppercase;padding:9px 7px;cursor:pointer}
+:root[data-theme="cliente-a"] .nav-sec-h:hover{color:var(--tx)}
+:root[data-theme="cliente-a"] .nav-sec-h .chev{color:var(--text-lo);font-size:10px}
+:root[data-theme="cliente-a"] .nav-sec.open > .nav-sec-h .chev{color:var(--live)}
+:root[data-theme="cliente-a"] .nav-sec-b{display:none;padding:0 2px 8px}
+:root[data-theme="cliente-a"] .nav-sec.open > .nav-sec-b{display:block}
+/* Ciudad: comunas en columna */
+:root[data-theme="cliente-a"] #nav-ciudad #comuna-tabs{display:flex;flex-direction:column;gap:3px}
+:root[data-theme="cliente-a"] #nav-ciudad .ctab{display:block;text-align:left;padding:7px 10px;border-radius:7px;font-size:12.5px}
+:root[data-theme="cliente-a"] #nav-ciudad .vsep{display:none}
+/* Línea: bloque de búsqueda+lista siempre visible dentro del acordeón */
+:root[data-theme="cliente-a"] #oper-sidebar{display:block !important}
+:root[data-theme="cliente-a"] #nav-linea #linea-list{max-height:44vh;overflow-y:auto}
+/* Ocultar la barra de comunas de arriba (movida) y el panel derecho salvo en infra (lista de ejes) */
+:root[data-theme="cliente-a"] .comuna-bar{display:none}
+:root[data-theme="cliente-a"] body:not(.modo-infra) #sidebar{display:none}
 
 /* ── Pills / dot en vivo: oro cálido, anillo sutil (sin pulso neón) ── */
 :root[data-theme="cliente-a"] .livedot,:root[data-theme="cliente-a"] .pill .dot{

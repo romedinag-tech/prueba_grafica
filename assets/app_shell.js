@@ -32,7 +32,7 @@ CITY.comunas=CITY.comunas||[]; CITY.comunasGeojson=CITY.comunasGeojson||"comunas
 CITY.live=!!CITY.live; CITY.liveBase=CITY.liveBase||""; CITY.voz=CITY.voz||{ejeSing:"eje",ejePlur:"ejes",EjePlur:"Ejes"};
 const _cap=t=>t?t.charAt(0).toUpperCase()+t.slice(1):t;
 const _liveUrl=n=> (CITY.live&&CITY.liveBase?CITY.liveBase:"data/")+n;
-const J = n => fetch(`data/${n}?v=211`).then(r=>{if(!r.ok)throw 0;return r.json();});
+const J = n => fetch(`data/${n}?v=212`).then(r=>{if(!r.ok)throw 0;return r.json();});
 // reloj en vivo (fecha + hora Chile) en el header — útil para las capturas
 function tickReloj(){
   const el = document.getElementById("hdr-reloj-txt"); if(!el) return;
@@ -181,7 +181,23 @@ function initCityChrome(){
     const t=CITY.modoLabels[b.dataset.modo], sp=b.querySelector('span'); if(t&&sp) sp.textContent=t; }); }
   if(/^cliente/.test(document.documentElement.dataset.theme||"")){
     const fr=document.querySelector('.flex.flex-1.overflow-hidden'), mb=document.querySelector('.modo-bar');
-    if(fr&&mb&&mb.parentElement!==fr) fr.insertBefore(mb, fr.firstChild);
+    if(fr&&mb&&mb.parentElement!==fr){
+      fr.insertBefore(mb, fr.firstChild);   // nav de modos a la izquierda
+      // Consolidar la navegación: Ciudad (comunas) y Línea (bus) como secciones colapsables del nav.
+      if(!mb.querySelector('.nav-accordions')){
+        const acc=document.createElement('div'); acc.className='nav-accordions';
+        acc.innerHTML=
+          '<div class="nav-sec open" data-sec="ciudad"><button class="nav-sec-h" type="button">Ciudad<span class="chev">▾</span></button><div class="nav-sec-b" id="nav-ciudad"></div></div>'+
+          '<div class="nav-sec" data-sec="linea"><button class="nav-sec-h" type="button">Línea<span class="chev">▸</span></button><div class="nav-sec-b" id="nav-linea"></div></div>';
+        mb.appendChild(acc);
+        const ct=document.getElementById('comuna-tabs'); if(ct) acc.querySelector('#nav-ciudad').appendChild(ct);
+        const os=document.getElementById('oper-sidebar'); if(os) acc.querySelector('#nav-linea').appendChild(os);  // bloque buscar+lista de líneas
+        acc.querySelectorAll('.nav-sec-h').forEach(h=>h.addEventListener('click',()=>{
+          const s=h.parentElement; s.classList.toggle('open');
+          const c=h.querySelector('.chev'); if(c) c.textContent=s.classList.contains('open')?'▾':'▸';
+        }));
+      }
+    }
   }
 }
 function buildComunaTabs(){
