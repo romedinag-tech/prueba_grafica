@@ -172,14 +172,14 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 :root[data-theme="cliente-a"] #normal-view,
 :root[data-theme="cliente-a"] #infra-view,
 :root[data-theme="cliente-a"] #demanda-view{display:grid;
-  grid-template-columns:208px minmax(0,1fr);column-gap:16px;row-gap:16px;grid-auto-rows:min-content}
+  grid-template-columns:300px minmax(0,1fr);column-gap:16px;row-gap:16px;grid-auto-rows:min-content}
 :root[data-theme="cliente-a"] #normal-view > *,
 :root[data-theme="cliente-a"] #infra-view > *,
 :root[data-theme="cliente-a"] #demanda-view > *{grid-column:2;margin:0 !important}
 :root[data-theme="cliente-a"] #kpis2,
 :root[data-theme="cliente-a"] #infra-kpis,
 :root[data-theme="cliente-a"] #dem-kpis{grid-column:1 !important;grid-row:1 / -1;
-  display:flex !important;flex-direction:column;gap:10px}
+  display:grid !important;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
 :root[data-theme="cliente-a"] #kpis2 .kpi,
 :root[data-theme="cliente-a"] #infra-kpis .kpi,
 :root[data-theme="cliente-a"] #dem-kpis .kpi{padding:12px 15px}
