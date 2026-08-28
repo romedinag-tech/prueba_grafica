@@ -196,6 +196,10 @@
   --line:      #3A342B;  --line-soft: #241F19;
   /* Texto — marfil cálido (text-lo aclarado a #9C9280 para pasar contraste AA 4.5 sobre las tarjetas) */
   --text-hi:   #F4EEE3;  --text-mid:  #B6AB98;  --text-lo: #9C9280;
+  /* Tipografía tipo reloj CASIO antiguo: DSEG7 (7-segmentos) en los NÚMEROS, VT323 (LCD retro legible) en el resto */
+  --font-display: 'VT323', ui-monospace, monospace;
+  --font-ui:      'VT323', ui-monospace, monospace;
+  --font-data:    'DSEG7', 'VT323', ui-monospace, monospace;
   /* Señales — oro como acento primario (reemplaza el teal) */
   --live:  #E0A836;  --ref:  #7FA8C9;  --warn: #E8944A;  --alert: #E5604D;
   /* Status */

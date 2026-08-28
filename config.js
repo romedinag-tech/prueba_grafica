@@ -14,7 +14,7 @@ window.CITY = {
   voz: {"ejeSing": "corredor", "ejePlur": "corredores", "EjePlur": "Corredores"},
   // ── Marca white-label (opcional; si falta, el shell usa "Centro de Mando / Transporte X") ──
   marca: "PULSO Movilidad",
-  tbTitle: "PULSO · Temuco",
+  tbTitle: "Sistema de Transporte Público de Buses del Gran Temuco",
   tbSub: "Inteligencia de Movilidad · GPS en vivo",
   heroTitle: "MONITOR DE FLOTA<br>EN TIEMPO REAL",
   eyebrow: "PULSO · Inteligencia de Movilidad",
