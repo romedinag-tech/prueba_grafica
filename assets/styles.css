@@ -159,6 +159,10 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 :root[data-theme="cliente-a"] .kpi.k-critical{border-left-color:var(--alert)}
 :root[data-theme="cliente-a"] .kpi.k-warning{border-left-color:var(--warn)}
 :root[data-theme="cliente-a"] .kpi.k-good{border-left-color:var(--good)}
+/* KPIs vivos (.klive) traen el borde INLINE (border-color:col+alpha) → hay que forzar la barra sólida.
+   Los otros bordes van neutros; el estado se sigue leyendo en el color del NÚMERO (.val.is-*). */
+:root[data-theme="cliente-a"] .kpi.klive{border-color:var(--line) !important;
+  border-left:4px solid var(--live) !important}
 
 /* ── Widgets (cards de gráfico): esquina más recta, sin borde redondo suave ── */
 :root[data-theme="cliente-a"] .widget{border-radius:9px}
