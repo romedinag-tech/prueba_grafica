@@ -167,6 +167,24 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 /* ── Widgets (cards de gráfico): esquina más recta, sin borde redondo suave ── */
 :root[data-theme="cliente-a"] .widget{border-radius:9px}
 
+/* ── Estructura tipo BI (ref. Paneltik): KPIs en RIEL vertical izquierdo + charts al centro.
+   Con el sidebar ya a la derecha, queda: [riel KPI | grilla de charts | panel de contexto]. ── */
+:root[data-theme="cliente-a"] #normal-view{display:grid;
+  grid-template-columns:208px minmax(0,1fr);column-gap:16px;row-gap:16px;grid-auto-rows:min-content}
+:root[data-theme="cliente-a"] #normal-view > *{grid-column:2;margin:0 !important}
+:root[data-theme="cliente-a"] #normal-view > #kpis2{grid-column:1;grid-row:1 / -1;
+  display:flex;flex-direction:column;gap:10px}
+:root[data-theme="cliente-a"] #kpis2 .kpi{padding:12px 15px}
+:root[data-theme="cliente-a"] #kpis2 .kpi .val{font-size:23px}
+:root[data-theme="cliente-a"] #kpis2 .kpi .sub{margin-top:6px}
+/* en angosto: el riel vuelve a banda superior (2 columnas) y el resto se apila */
+@media(max-width:1100px){
+  :root[data-theme="cliente-a"] #normal-view{display:block}
+  :root[data-theme="cliente-a"] #normal-view > *{margin-bottom:16px !important}
+  :root[data-theme="cliente-a"] #normal-view > #kpis2{display:grid;
+    grid-template-columns:repeat(2,1fr);gap:10px}
+}
+
 /* ── Pills / dot en vivo: oro cálido, anillo sutil (sin pulso neón) ── */
 :root[data-theme="cliente-a"] .livedot,:root[data-theme="cliente-a"] .pill .dot{
   animation:none;box-shadow:0 0 0 3px var(--live-tint)}
