@@ -124,3 +124,51 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 /* punto "en vivo": estático con anillo azul suave (institucional = calmo, sin pulso neón) */
 :root[data-theme="light"] .livedot{animation:none;box-shadow:0 0 0 3px var(--live-tint)}
 :root[data-theme="light"] .pill .dot{box-shadow:0 0 0 3px var(--live-tint)}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   RE-LAYOUT "cliente-a" (PULSO) — Fase 2. Distribución + lenguaje visual PROPIOS.
+   TODO cuelga de [data-theme="cliente-a"] → el default (prod/dark/light) NO se toca.
+   Misma data, mismos widgets: solo cambia la disposición y el estilo de las piezas.
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Orientación invertida: el panel de contexto va a la DERECHA ── */
+:root[data-theme="cliente-a"] #sidebar{order:2;width:324px;
+  border-right:none;border-left:1px solid var(--line)}
+
+/* ── Header: más alto, marca prominente, franja de acento de marca abajo ── */
+:root[data-theme="cliente-a"] header{height:auto;min-height:66px;padding:13px 24px;
+  border-bottom:none;position:relative}
+:root[data-theme="cliente-a"] header::after{content:"";position:absolute;left:0;right:0;bottom:0;
+  height:3px;background:var(--grad-brand)}
+:root[data-theme="cliente-a"] #tb-title{font-family:var(--font-display);font-size:19px;
+  font-weight:800;letter-spacing:-.02em}
+
+/* ── Comuna-bar: separador claro bajo el header ── */
+:root[data-theme="cliente-a"] .comuna-bar{border-bottom:1px solid var(--line);
+  background:var(--surface-1)}
+
+/* ── KPI: lenguaje PLANO — esquina recta, barra de acento a la IZQUIERDA, sin brillo ── */
+:root[data-theme="cliente-a"] .kpi{background:var(--surface-1);border:1px solid var(--line);
+  border-left:4px solid var(--live);border-radius:7px;box-shadow:none;padding:16px 18px}
+:root[data-theme="cliente-a"] .kpi::before,
+:root[data-theme="cliente-a"] .kpi::after{display:none}
+:root[data-theme="cliente-a"] .kpi:hover{transform:none;border-color:var(--line);
+  border-left-color:var(--ref);box-shadow:0 6px 18px -10px rgba(0,0,0,.55)}
+:root[data-theme="cliente-a"] .kpi .lab{letter-spacing:.12em;color:var(--text-mid)}
+:root[data-theme="cliente-a"] .kpi .val{font-size:29px}
+:root[data-theme="cliente-a"] .kpi.k-critical{border-left-color:var(--alert)}
+:root[data-theme="cliente-a"] .kpi.k-warning{border-left-color:var(--warn)}
+:root[data-theme="cliente-a"] .kpi.k-good{border-left-color:var(--good)}
+
+/* ── Widgets (cards de gráfico): esquina más recta, sin borde redondo suave ── */
+:root[data-theme="cliente-a"] .widget{border-radius:9px}
+
+/* ── Pills / dot en vivo: oro cálido, anillo sutil (sin pulso neón) ── */
+:root[data-theme="cliente-a"] .livedot,:root[data-theme="cliente-a"] .pill .dot{
+  animation:none;box-shadow:0 0 0 3px var(--live-tint)}
+
+/* Responsive: en pantallas chicas el panel vuelve arriba (no forzar la inversión) */
+@media(max-width:900px){
+  :root[data-theme="cliente-a"] #sidebar{order:0;width:auto;
+    border-left:none;border-right:1px solid var(--line)}
+}
