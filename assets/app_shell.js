@@ -32,7 +32,7 @@ CITY.comunas=CITY.comunas||[]; CITY.comunasGeojson=CITY.comunasGeojson||"comunas
 CITY.live=!!CITY.live; CITY.liveBase=CITY.liveBase||""; CITY.voz=CITY.voz||{ejeSing:"eje",ejePlur:"ejes",EjePlur:"Ejes"};
 const _cap=t=>t?t.charAt(0).toUpperCase()+t.slice(1):t;
 const _liveUrl=n=> (CITY.live&&CITY.liveBase?CITY.liveBase:"data/")+n;
-const J = n => fetch(`data/${n}?v=215`).then(r=>{if(!r.ok)throw 0;return r.json();});
+const J = n => fetch(`data/${n}?v=216`).then(r=>{if(!r.ok)throw 0;return r.json();});
 // reloj en vivo (fecha + hora Chile) en el header — útil para las capturas
 function tickReloj(){
   const el = document.getElementById("hdr-reloj-txt"); if(!el) return;
@@ -151,6 +151,7 @@ function initCityChrome(){
   set(".hero-content h1", CITY.heroTitle || ("TRANSPORTE PÚBLICO<br>"+nom.toUpperCase()));
   if(CITY.heroSub) set(".hero-content p", CITY.heroSub);
   set("#tb-title", CITY.tbTitle || ("Transporte · "+nom));
+  if(CITY.tbSub) set(".tb-sub", CITY.tbSub);   // subtítulo del header (marca white-label)
   // indicador de estado: feed en vivo (dot + edad) para ciudades LIVE; análisis histórico para estáticas
   set("#hdr-status", CITY.live
       ? `<span class="dot-live"></span><span>actualizado hace <span id="live-age" class="font-mono text-[var(--tx)]">—</span></span>`
@@ -199,7 +200,16 @@ function initCityChrome(){
       }
     }
     const _exc=document.getElementById('excesos-card'), _nv=document.getElementById('normal-view');
-    if(_exc&&_nv&&_exc.parentElement!==_nv) _nv.appendChild(_exc);   // Excesos de velocidad al fondo de la vista
+    if(_exc&&_nv&&_exc.parentElement!==_nv) _nv.appendChild(_exc);   // Excesos de velocidad al fondo de operación
+    // Envolver el contenido NO-KPI de cada vista en .view-content → layout flex [riel | contenido].
+    // Evita el gotcha de grid-row:1/-1 (grilla implícita) que inflaba la fila 1 y rompía el infra-view.
+    ['normal-view','infra-view','demanda-view'].forEach(vid=>{
+      const v=document.getElementById(vid); if(!v || v.querySelector(':scope > .view-content')) return;
+      const kpi=v.querySelector('#kpis2,#infra-kpis,#dem-kpis'); if(!kpi) return;
+      const wrap=document.createElement('div'); wrap.className='view-content';
+      [...v.children].forEach(ch=>{ if(ch!==kpi) wrap.appendChild(ch); });
+      v.appendChild(wrap);
+    });
   }
 }
 function buildComunaTabs(){

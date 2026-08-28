@@ -15,6 +15,7 @@ window.CITY = {
   // ── Marca white-label (opcional; si falta, el shell usa "Centro de Mando / Transporte X") ──
   marca: "PULSO Movilidad",
   tbTitle: "PULSO · Temuco",
+  tbSub: "Inteligencia de Movilidad · GPS en vivo",
   heroTitle: "MONITOR DE FLOTA<br>EN TIEMPO REAL",
   eyebrow: "PULSO · Inteligencia de Movilidad",
   heroSub: "Operación del transporte público de Temuco medida sobre GPS en vivo — flota, velocidad, cobertura y cumplimiento en una sola vista.",

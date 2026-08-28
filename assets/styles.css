@@ -169,17 +169,18 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 
 /* ── Estructura tipo BI (ref. Paneltik): KPIs en RIEL vertical izquierdo + charts al centro.
    Aplicado a las 3 vistas (operación / infraestructura / demanda). ── */
+/* Layout de vista: FLEX [riel de KPIs | contenido]. El contenido no-KPI lo envuelve initCityChrome en
+   .view-content → evita el gotcha de grid-row:1/-1 en grilla implícita (inflaba fila 1 y rompía infra). */
 :root[data-theme="cliente-a"] #normal-view,
 :root[data-theme="cliente-a"] #infra-view,
-:root[data-theme="cliente-a"] #demanda-view{display:grid;
-  grid-template-columns:352px minmax(0,1fr);column-gap:16px;row-gap:16px;grid-auto-rows:min-content}
-:root[data-theme="cliente-a"] #normal-view > *,
-:root[data-theme="cliente-a"] #infra-view > *,
-:root[data-theme="cliente-a"] #demanda-view > *{grid-column:2;margin:0 !important}
+:root[data-theme="cliente-a"] #demanda-view{display:flex;gap:16px;align-items:flex-start}
+:root[data-theme="cliente-a"] .view-content{flex:1 1 auto;min-width:0;
+  display:flex;flex-direction:column;gap:16px}
+:root[data-theme="cliente-a"] .view-content > *{margin:0 !important}
 :root[data-theme="cliente-a"] #kpis2,
 :root[data-theme="cliente-a"] #infra-kpis,
-:root[data-theme="cliente-a"] #dem-kpis{grid-column:1 !important;grid-row:1 / -1;
-  display:grid !important;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
+:root[data-theme="cliente-a"] #dem-kpis{flex:0 0 352px;display:grid !important;
+  grid-template-columns:1fr 1fr;gap:10px;align-content:start}
 :root[data-theme="cliente-a"] #kpis2 .kpi,
 :root[data-theme="cliente-a"] #infra-kpis .kpi,
 :root[data-theme="cliente-a"] #dem-kpis .kpi{padding:15px 16px;min-height:158px;
@@ -187,18 +188,14 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 :root[data-theme="cliente-a"] #kpis2 .kpi .val,
 :root[data-theme="cliente-a"] #infra-kpis .kpi .val,
 :root[data-theme="cliente-a"] #dem-kpis .kpi .val{font-size:26px}
-/* en angosto: los rieles vuelven a banda superior */
+/* en angosto: el riel vuelve a banda superior (columna) */
 @media(max-width:1100px){
   :root[data-theme="cliente-a"] #normal-view,
   :root[data-theme="cliente-a"] #infra-view,
-  :root[data-theme="cliente-a"] #demanda-view{display:block}
-  :root[data-theme="cliente-a"] #normal-view > *,
-  :root[data-theme="cliente-a"] #infra-view > *,
-  :root[data-theme="cliente-a"] #demanda-view > *{margin-bottom:16px !important}
+  :root[data-theme="cliente-a"] #demanda-view{flex-direction:column}
   :root[data-theme="cliente-a"] #kpis2,
   :root[data-theme="cliente-a"] #infra-kpis,
-  :root[data-theme="cliente-a"] #dem-kpis{display:grid !important;
-    grid-template-columns:repeat(2,1fr);gap:10px}
+  :root[data-theme="cliente-a"] #dem-kpis{flex:0 0 auto;grid-template-columns:repeat(2,1fr)}
 }
 
 /* ── Selector de modo (Operación/Infra/Demanda) como RIEL VERTICAL a la IZQUIERDA.
