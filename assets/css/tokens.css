@@ -194,8 +194,8 @@
   --bg-void:   #12100E;  --bg-base:   #1A1714;
   --surface-1: #221E19;  --surface-2: #2B2620;
   --line:      #3A342B;  --line-soft: #241F19;
-  /* Texto — marfil cálido */
-  --text-hi:   #F4EEE3;  --text-mid:  #B6AB98;  --text-lo: #867B6A;
+  /* Texto — marfil cálido (text-lo aclarado a #9C9280 para pasar contraste AA 4.5 sobre las tarjetas) */
+  --text-hi:   #F4EEE3;  --text-mid:  #B6AB98;  --text-lo: #9C9280;
   /* Señales — oro como acento primario (reemplaza el teal) */
   --live:  #E0A836;  --ref:  #7FA8C9;  --warn: #E8944A;  --alert: #E5604D;
   /* Status */
