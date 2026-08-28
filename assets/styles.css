@@ -189,23 +189,15 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 :root[data-theme="cliente-a"] #infra-kpis .kpi .val,
 :root[data-theme="cliente-a"] #dem-kpis .kpi .val{font-size:26px}
 
-/* ── Estética reloj CASIO antiguo: números 7-segmentos en ORO con glow LCD ámbar,
-   campanil (Conce) fuera, título largo ajustado. VT323/DSEG7 vienen de tokens.css. ── */
-:root[data-theme="cliente-a"] .kpi .val{color:var(--live);text-shadow:0 0 10px rgba(224,168,54,.40)}
-:root[data-theme="cliente-a"] .kpi .g-val{fill:var(--live);filter:drop-shadow(0 0 5px rgba(224,168,54,.45))}
+/* ── Cara de cliente: campanil (Conce) fuera + toggle claro/oscuro fuera (white-label = 1 marca fija;
+   togglear rompe el re-layout, cuyo CSS está scopeado al tema). ── */
 :root[data-theme="cliente-a"] .tb-logo{display:none}
-/* Toggle claro/oscuro FUERA en temas de cliente: el re-layout lo arma el JS una sola vez y su CSS está
-   scopeado al tema → togglear a light/dark deja el DOM reestructurado sin estilos y desconfigura todo.
-   El white-label tiene UNA marca fija. (Cubre cualquier cliente-*). */
 :root[data-theme^="cliente-"] #theme-btn{display:none}
-:root[data-theme="cliente-a"] #tb-title{font-size:clamp(16px,1.55vw,24px);line-height:1.08;letter-spacing:.01em;
-  color:var(--live);text-shadow:0 0 12px rgba(224,168,54,.45)}
-:root[data-theme="cliente-a"] .tb-sub{letter-spacing:.1em;color:var(--warn)}
-/* Neón naranja emisivo (dashboard-pro) en encabezados de widget/sección y el modo activo del nav */
-:root[data-theme="cliente-a"] .widget-h h3,
-:root[data-theme="cliente-a"] .card h4,
-:root[data-theme="cliente-a"] .sec-head h3{color:var(--live);text-shadow:0 0 8px rgba(224,168,54,.28)}
-:root[data-theme="cliente-a"] #modo-switch button.on{text-shadow:0 0 8px rgba(224,168,54,.5)}
+/* ── SOLO EL TÍTULO como panel retro: fuente de reloj segmentado (DSEG) + ámbar con glow neón.
+   Todo lo demás usa las fuentes y colores base del tema (tal cual). ── */
+:root[data-theme="cliente-a"] #tb-title{font-family:'DSEG14','VT323',ui-monospace,monospace;
+  font-size:clamp(12px,1.05vw,17px);line-height:1.2;letter-spacing:.02em;
+  color:var(--live);text-shadow:0 0 10px rgba(224,168,54,.45)}
 /* en angosto: el riel vuelve a banda superior (columna) */
 @media(max-width:1100px){
   :root[data-theme="cliente-a"] #normal-view,
