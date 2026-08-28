@@ -225,6 +225,48 @@
   --ch-grid: var(--line-soft);  --ch-axis: var(--text-lo);  --ch-tip: var(--surface-2);  --ch-line: rgba(58,52,43,.6);
 }
 
+/* ─── Variante CLARA de la cara PULSO — "Celeste / Papel" (data-theme="cliente-a-light").
+   Gemela clara del ámbar/grafito. Fondos pastel/celeste; acento primario VIRADO a azul institucional
+   (#1D6FB8, 4.90:1 AA) porque el oro sobre claro es ilegible (~1.8:1); el ámbar queda como guiño en
+   --warn y en la serie. Ondas del header: azul (--live) vs coral (--alert). Series SATURADAS (no pastel)
+   para contraste sobre el fondo luminoso. Paleta recomendada + verificada AA por agente de diseño. ─── */
+:root[data-theme="cliente-a-light"] {
+  /* Superficies (celeste-papel; void→surface-2 = de fondo a elevado) */
+  --bg-void:   #DCE6EF;  --bg-base:   #E8F0F7;
+  --surface-1: #F4F8FC;  --surface-2: #FFFFFF;
+  --line:      #C2D2E0;  --line-soft: #DCE6EF;
+  /* Texto (text-lo oscurecido a #5F6E7E para cruzar 4.5 sobre superficie clara) */
+  --text-hi:   #14212E;  --text-mid:  #48586A;  --text-lo: #5F6E7E;
+  /* Señales — azul institucional como acento primario; ámbar reasignado a --warn */
+  --live:  #1D6FB8;  --ref:  #6E8296;  --warn: #C57B14;  --alert: #D64535;
+  /* Status */
+  --good:#2E8B57; --warning:#C57B14; --critical:#C0392B; --nodata:#8A97A5;
+  /* Serie categórica — saturada para resaltar sobre claro */
+  --c1:#1D6FB8; --c2:#D97D1A; --c3:#C0392B; --c4:#1E8A6E; --c5:#8E44AD;
+  --c6:#0E9CB0; --c7:#C2417F; --c8:#6B8E23; --c9:#B5651D; --c10:#34568B;
+  /* Dominio */
+  --infra-corredor:#C2417F; --infra-pistabus:#D97D1A; --infra-exclusiva:#5A8C2A;
+  --infra-mixto:#8C7B63; --infra-none:#A8B0B8; --infra-efectivo:#8E44AD;
+  --nse-bajo:#D97D1A; --nse-medio:#8C8072; --nse-alto:#1E8A6E;
+  /* Superficies compuestas / bridge (rgba de --live = 29,111,184) */
+  --topbar: rgba(244,248,252,.85);  --hover: rgba(29,111,184,.08);  --chip: rgba(29,111,184,.10);
+  --glow1: rgba(29,111,184,.25);  --glow2: rgba(214,69,53,.22);
+  --live-tint: rgba(29,111,184,.12);  --live-border: rgba(29,111,184,.35);
+  --alert-tint: rgba(214,69,53,.12);  --warn-tint: rgba(197,123,20,.14);
+  --warn-border: rgba(197,123,20,.40);  --warn-text: #9A6410;
+  --ico-bg: rgba(29,111,184,.10);  --subtle: rgba(20,33,46,.05);
+  --ref-tint: rgba(110,130,150,.12);  --track: rgba(20,33,46,.08);
+  /* Marca: azul → cian */
+  --grad-brand: linear-gradient(135deg, #1D6FB8, #0E9CB0);
+  --grad-panel: linear-gradient(180deg, #FFFFFF, #F4F8FC);
+  --grad-shine: linear-gradient(180deg, rgba(255,255,255,.60), rgba(255,255,255,0));
+  /* Sombras (planas, suaves, para claro) */
+  --shadow-card: 0 1px 3px rgba(20,33,46,.08);  --shadow-widget: 0 2px 8px rgba(20,33,46,.10);
+  --shadow-hover: 0 4px 16px rgba(20,33,46,.12);  --shadow-glow-live: 0 0 0 3px rgba(29,111,184,.20);
+  /* Charts */
+  --ch-grid: rgba(20,33,46,.08);  --ch-axis: #6B7B8C;  --ch-tip: #FFFFFF;  --ch-line: #1D6FB8;
+}
+
 /* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
   :root {

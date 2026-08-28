@@ -32,7 +32,7 @@ CITY.comunas=CITY.comunas||[]; CITY.comunasGeojson=CITY.comunasGeojson||"comunas
 CITY.live=!!CITY.live; CITY.liveBase=CITY.liveBase||""; CITY.voz=CITY.voz||{ejeSing:"eje",ejePlur:"ejes",EjePlur:"Ejes"};
 const _cap=t=>t?t.charAt(0).toUpperCase()+t.slice(1):t;
 const _liveUrl=n=> (CITY.live&&CITY.liveBase?CITY.liveBase:"data/")+n;
-const J = n => fetch(`data/${n}?v=222`).then(r=>{if(!r.ok)throw 0;return r.json();});
+const J = n => fetch(`data/${n}?v=223`).then(r=>{if(!r.ok)throw 0;return r.json();});
 // reloj en vivo (fecha + hora Chile) en el header — útil para las capturas
 function tickReloj(){
   const el = document.getElementById("hdr-reloj-txt"); if(!el) return;
@@ -106,10 +106,19 @@ const TH = () => ({tx:cssv("--tx"), mut:cssv("--muted"), axis:cssv("--ch-axis"),
 function applyTheme(t){
   document.documentElement.dataset.theme = t;
   try{ localStorage.setItem("gccp-theme", t); }catch(e){}
-  const btn=$("theme-btn"); if(btn) btn.textContent = t==="light" ? "☾" : "☀";
+  const btn=$("theme-btn"); if(btn) btn.textContent = (t==="light"||/-light$/.test(t)) ? "☾" : "☀";
 }
 function toggleTheme(){
-  applyTheme(document.documentElement.dataset.theme==="light" ? "dark" : "light");
+  const t=document.documentElement.dataset.theme||"";
+  // Cara de cliente: alternar entre la variante oscura y su gemela "-light" RECARGANDO. El re-layout
+  // (nav/acordeones/.view-content) y ECharts/Leaflet cachean estado al construirse; un reload reconstruye
+  // TODO limpio en el tema nuevo (la head-init honra la variante cliente-* persistida en localStorage).
+  if(/^cliente/.test(t)){
+    const nx = t.endsWith("-light") ? t.replace(/-light$/,"") : t+"-light";
+    try{ localStorage.setItem("gccp-theme", nx); }catch(e){}
+    location.reload(); return;
+  }
+  applyTheme(t==="light" ? "dark" : "light");
   if(typeof render==="function") render();   // redibuja charts con los colores nuevos
 }
 
