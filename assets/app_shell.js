@@ -32,7 +32,7 @@ CITY.comunas=CITY.comunas||[]; CITY.comunasGeojson=CITY.comunasGeojson||"comunas
 CITY.live=!!CITY.live; CITY.liveBase=CITY.liveBase||""; CITY.voz=CITY.voz||{ejeSing:"eje",ejePlur:"ejes",EjePlur:"Ejes"};
 const _cap=t=>t?t.charAt(0).toUpperCase()+t.slice(1):t;
 const _liveUrl=n=> (CITY.live&&CITY.liveBase?CITY.liveBase:"data/")+n;
-const J = n => fetch(`data/${n}?v=223`).then(r=>{if(!r.ok)throw 0;return r.json();});
+const J = n => fetch(`data/${n}?v=224`).then(r=>{if(!r.ok)throw 0;return r.json();});
 // reloj en vivo (fecha + hora Chile) en el header — útil para las capturas
 function tickReloj(){
   const el = document.getElementById("hdr-reloj-txt"); if(!el) return;
@@ -419,6 +419,28 @@ function render(){
   renderVelCiclo();
   // El alto del mapa se ajusta al de velociclo+equidad (vista línea); se mide tras el resize async de los charts.
   setTimeout(syncMapHeight, 150);
+  // ETAPA 2 · VISTA DE LÍNEA compuesta: bajo la oferta operacional, apila el bloque de DEMANDA de la MISMA
+  // línea (reusa renderDemanda, ya line-aware). Prod-safe: solo si la ciudad tiene medio de pago (CITY.demanda)
+  // y la línea tiene dato → una ciudad/línea sin demanda muestra solo la oferta, como antes.
+  const lineaDem = state.linea!=="TODAS" && CITY.demanda && DEM && (DEM.lineas||[]).some(l=>l.linea===state.linea);
+  document.body.classList.toggle("linea-page", !!lineaDem);
+  lineaSectionHeaders(!!lineaDem);
+  if(lineaDem){ $("demanda-view").style.display=""; renderDemanda(); }
+}
+// ETAPA 2 · encabezados de sección de la vista de línea (① Oferta / ② Demanda). Se insertan como HERMANOS
+// SOBRE cada vista (fuera del flex interno de las vistas → no rompen el re-layout de la cara de cliente).
+function lineaSectionHeaders(on){
+  [["normal-view","Oferta — cómo opera la línea","frecuencia · velocidad · cumplimiento · flota · ruta"],
+   ["demanda-view","Demanda — quién y cuánto sube","abordajes (tap-in, sin bajadas) · composición · recaudación · perfil de subidas"]
+  ].forEach(([vid,tt,sub],i)=>{
+    const v=$(vid); if(!v||!v.parentElement) return;
+    let h=document.getElementById("lsh-"+vid);
+    if(on){
+      if(!h){ h=document.createElement("div"); h.id="lsh-"+vid; h.className="linea-sec-h"; v.parentElement.insertBefore(h,v); }
+      h.innerHTML=`<span class="lsh-n">${i+1}</span><span class="lsh-txt"><span class="lsh-t">${tt}</span><span class="lsh-s">${sub}</span></span>`;
+      h.style.display="";
+    } else if(h){ h.style.display="none"; }
+  });
 }
 // Vista de LÍNEA: iguala el alto del mapa a la suma de las tarjetas de la columna derecha
 // (velocidad a lo largo del ciclo + equidad de flota). En otras vistas o en móvil, usa el alto por clase.
@@ -3437,10 +3459,12 @@ function renderEvolucion(){
     J("baseline_var.json").then(d=>{ BVAR=d; if(state.vista==="normal"&&state.linea!=="TODAS") renderVarObserved(); }).catch(()=>{});   // baseline por variante (Bloque 3)
     J("infraestructura.json").then(d=>{ INFRAE=d; if(state.modo==="infra") renderInfra(); else if(state.modo==="demanda") renderDemMap(); }).catch(()=>{});   // observatorio de infraestructura (+ geometría de ejes para el mapa de demanda)
     if(CITY.demanda){   // 3er lente: validaciones del medio de pago (abordajes)
-      J("demanda.json").then(d=>{ DEM=d; if(state.modo==="demanda") renderDemanda(); }).catch(()=>{});
-      J("demanda_eslabon.json").then(d=>{ DEMESL=d; if(state.modo==="demanda") renderDemMap(); }).catch(()=>{});   // nube de puntos (geométrico, Nivel 1)
-      J("demanda_eslabon_p.json").then(d=>{ DEMESLP=d; if(state.modo==="demanda"){ renderDemCtrls(); renderDemMap(); } }).catch(()=>{});   // Nivel 2 (sentido real por patente)
-      J("demanda_perfil.json").then(d=>{ DEMPERF=d; if(state.modo==="demanda") renderDemanda(); }).catch(()=>{});   // perfil de carga por línea (km × pax)
+      // línea seleccionada en modo operación = VISTA DE LÍNEA (Etapa 2): también consume estos JSON → refrescar.
+      const _demLinePage = () => state.linea!=="TODAS" && state.modo==="operacion";
+      J("demanda.json").then(d=>{ DEM=d; if(state.modo==="demanda") renderDemanda(); else if(_demLinePage()) render(); }).catch(()=>{});
+      J("demanda_eslabon.json").then(d=>{ DEMESL=d; if(state.modo==="demanda"||_demLinePage()) renderDemMap(); }).catch(()=>{});   // nube de puntos (geométrico, Nivel 1)
+      J("demanda_eslabon_p.json").then(d=>{ DEMESLP=d; if(state.modo==="demanda"||_demLinePage()){ renderDemCtrls(); renderDemMap(); } }).catch(()=>{});   // Nivel 2 (sentido real por patente)
+      J("demanda_perfil.json").then(d=>{ DEMPERF=d; if(state.modo==="demanda") renderDemanda(); else if(_demLinePage()) render(); }).catch(()=>{});   // perfil de carga por línea (km × pax)
       J("demanda_eje.json").then(d=>{ DEMEJE=d; }).catch(()=>{});   // conservado (carga por eje, no lo usa el mapa)
     }
     J("flujo_ejes.json").then(d=>{ FLUJOEJES=d; if(state.modo==="infra") renderInfra(); }).catch(()=>{});   // flujo buses/h por eje×sentido

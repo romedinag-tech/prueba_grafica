@@ -125,6 +125,19 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 :root[data-theme="light"] .livedot{animation:none;box-shadow:0 0 0 3px var(--live-tint)}
 :root[data-theme="light"] .pill .dot{box-shadow:0 0 0 3px var(--live-tint)}
 
+/* ═══ ETAPA 2 · VISTA DE LÍNEA compuesta (motor-wide): oferta + demanda apiladas, cada una con encabezado.
+   Los encabezados van como hermanos SOBRE cada vista → no entran al flex interno de la cara de cliente. ═══ */
+.linea-sec-h{display:flex;align-items:center;gap:12px;margin:6px 2px 2px;padding-bottom:10px;
+  border-bottom:1px solid var(--line)}
+.linea-sec-h .lsh-n{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  background:var(--live-tint);color:var(--live);font-weight:800;font-size:13px;font-variant-numeric:tabular-nums}
+.linea-sec-h .lsh-txt{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.linea-sec-h .lsh-t{font-weight:800;font-size:15px;color:var(--tx);letter-spacing:-.01em}
+.linea-sec-h .lsh-s{font-size:11.5px;color:var(--muted)}
+.linea-page #demanda-view{margin-top:18px}
+/* en la vista de línea el ranking "Líneas por demanda" es redundante (la línea ya está elegida) */
+.linea-page section.widget:has(#dem-ranking){display:none}
+
 /* ═══════════════════════════════════════════════════════════════════════════════
    RE-LAYOUT "cliente-a" (PULSO) — Fase 2. Distribución + lenguaje visual PROPIOS.
    TODO cuelga de [data-theme^="cliente-"] → el default (prod/dark/light) NO se toca.
