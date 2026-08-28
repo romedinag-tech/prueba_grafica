@@ -32,7 +32,7 @@ CITY.comunas=CITY.comunas||[]; CITY.comunasGeojson=CITY.comunasGeojson||"comunas
 CITY.live=!!CITY.live; CITY.liveBase=CITY.liveBase||""; CITY.voz=CITY.voz||{ejeSing:"eje",ejePlur:"ejes",EjePlur:"Ejes"};
 const _cap=t=>t?t.charAt(0).toUpperCase()+t.slice(1):t;
 const _liveUrl=n=> (CITY.live&&CITY.liveBase?CITY.liveBase:"data/")+n;
-const J = n => fetch(`data/${n}?v=210`).then(r=>{if(!r.ok)throw 0;return r.json();});
+const J = n => fetch(`data/${n}?v=211`).then(r=>{if(!r.ok)throw 0;return r.json();});
 // reloj en vivo (fecha + hora Chile) en el header — útil para las capturas
 function tickReloj(){
   const el = document.getElementById("hdr-reloj-txt"); if(!el) return;
@@ -176,6 +176,13 @@ function initCityChrome(){
     document.querySelectorAll('meta[property="og:image"],meta[name="twitter:image"]').forEach(m=>m.setAttribute("content",u+"assets/og.png"));
   }
   try{ document.title = CITY.marca ? `${nom} · ${CITY.marca}` : `${nom} · Centro de Mando`; }catch(e){}
+  // Cara de cliente: renombrar los modos (config) y llevar el selector a un riel vertical a la izquierda (tema).
+  if(CITY.modoLabels){ document.querySelectorAll('#modo-switch button[data-modo]').forEach(b=>{
+    const t=CITY.modoLabels[b.dataset.modo], sp=b.querySelector('span'); if(t&&sp) sp.textContent=t; }); }
+  if(/^cliente/.test(document.documentElement.dataset.theme||"")){
+    const fr=document.querySelector('.flex.flex-1.overflow-hidden'), mb=document.querySelector('.modo-bar');
+    if(fr&&mb&&mb.parentElement!==fr) fr.insertBefore(mb, fr.firstChild);
+  }
 }
 function buildComunaTabs(){
   const order = (GEO.features||[]).map(f=>f.properties.name);

@@ -18,4 +18,6 @@ window.CITY = {
   heroTitle: "MONITOR DE FLOTA<br>EN TIEMPO REAL",
   eyebrow: "PULSO · Inteligencia de Movilidad",
   heroSub: "Operación del transporte público de Temuco medida sobre GPS en vivo — flota, velocidad, cobertura y cumplimiento en una sola vista.",
+  // Nombres de los modos, sugerentes de lo que muestran (white-label). Prod sin esto usa los originales.
+  modoLabels: { operacion: "Operación en Vivo", infra: "Red y Corredores", demanda: "Demanda y Pasajeros" },
 };

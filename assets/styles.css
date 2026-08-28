@@ -168,22 +168,49 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 :root[data-theme="cliente-a"] .widget{border-radius:9px}
 
 /* ── Estructura tipo BI (ref. Paneltik): KPIs en RIEL vertical izquierdo + charts al centro.
-   Con el sidebar ya a la derecha, queda: [riel KPI | grilla de charts | panel de contexto]. ── */
-:root[data-theme="cliente-a"] #normal-view{display:grid;
+   Aplicado a las 3 vistas (operación / infraestructura / demanda). ── */
+:root[data-theme="cliente-a"] #normal-view,
+:root[data-theme="cliente-a"] #infra-view,
+:root[data-theme="cliente-a"] #demanda-view{display:grid;
   grid-template-columns:208px minmax(0,1fr);column-gap:16px;row-gap:16px;grid-auto-rows:min-content}
-:root[data-theme="cliente-a"] #normal-view > *{grid-column:2;margin:0 !important}
-:root[data-theme="cliente-a"] #normal-view > #kpis2{grid-column:1;grid-row:1 / -1;
-  display:flex;flex-direction:column;gap:10px}
-:root[data-theme="cliente-a"] #kpis2 .kpi{padding:12px 15px}
-:root[data-theme="cliente-a"] #kpis2 .kpi .val{font-size:23px}
-:root[data-theme="cliente-a"] #kpis2 .kpi .sub{margin-top:6px}
-/* en angosto: el riel vuelve a banda superior (2 columnas) y el resto se apila */
+:root[data-theme="cliente-a"] #normal-view > *,
+:root[data-theme="cliente-a"] #infra-view > *,
+:root[data-theme="cliente-a"] #demanda-view > *{grid-column:2;margin:0 !important}
+:root[data-theme="cliente-a"] #kpis2,
+:root[data-theme="cliente-a"] #infra-kpis,
+:root[data-theme="cliente-a"] #dem-kpis{grid-column:1 !important;grid-row:1 / -1;
+  display:flex !important;flex-direction:column;gap:10px}
+:root[data-theme="cliente-a"] #kpis2 .kpi,
+:root[data-theme="cliente-a"] #infra-kpis .kpi,
+:root[data-theme="cliente-a"] #dem-kpis .kpi{padding:12px 15px}
+:root[data-theme="cliente-a"] #kpis2 .kpi .val,
+:root[data-theme="cliente-a"] #infra-kpis .kpi .val,
+:root[data-theme="cliente-a"] #dem-kpis .kpi .val{font-size:23px}
+/* en angosto: los rieles vuelven a banda superior */
 @media(max-width:1100px){
-  :root[data-theme="cliente-a"] #normal-view{display:block}
-  :root[data-theme="cliente-a"] #normal-view > *{margin-bottom:16px !important}
-  :root[data-theme="cliente-a"] #normal-view > #kpis2{display:grid;
+  :root[data-theme="cliente-a"] #normal-view,
+  :root[data-theme="cliente-a"] #infra-view,
+  :root[data-theme="cliente-a"] #demanda-view{display:block}
+  :root[data-theme="cliente-a"] #normal-view > *,
+  :root[data-theme="cliente-a"] #infra-view > *,
+  :root[data-theme="cliente-a"] #demanda-view > *{margin-bottom:16px !important}
+  :root[data-theme="cliente-a"] #kpis2,
+  :root[data-theme="cliente-a"] #infra-kpis,
+  :root[data-theme="cliente-a"] #dem-kpis{display:grid !important;
     grid-template-columns:repeat(2,1fr);gap:10px}
 }
+
+/* ── Selector de modo (Operación/Infra/Demanda) como RIEL VERTICAL a la IZQUIERDA.
+   initCityChrome mueve `.modo-bar` dentro del flex-row para temas de cliente. ── */
+:root[data-theme="cliente-a"] .modo-bar{flex:0 0 150px;width:150px;flex-direction:column;
+  justify-content:flex-start;align-items:stretch;border-bottom:none;
+  border-right:1px solid var(--line);padding:14px 11px;background:var(--surface-1)}
+:root[data-theme="cliente-a"] #modo-switch{flex-direction:column;width:100%;gap:6px;
+  background:none;border:none;border-radius:0;padding:0}
+:root[data-theme="cliente-a"] #modo-switch button{justify-content:flex-start;padding:11px 13px;
+  border-radius:9px;font-size:13.5px}
+:root[data-theme="cliente-a"] #modo-switch button.on{background:var(--live-tint);
+  box-shadow:inset 3px 0 0 var(--live)}
 
 /* ── Pills / dot en vivo: oro cálido, anillo sutil (sin pulso neón) ── */
 :root[data-theme="cliente-a"] .livedot,:root[data-theme="cliente-a"] .pill .dot{
