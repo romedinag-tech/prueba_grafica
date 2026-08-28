@@ -1,0 +1,126 @@
+/* styles.css — component styles consuming tokens.css variables.
+   Colors, fonts, radii, shadows, type scale: all in tokens.css. */
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-ui);background:var(--bg);color:var(--tx);
+  line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(900px 500px at 85% -10%,var(--glow1),transparent 60%),
+                   radial-gradient(700px 500px at 0% 0%,var(--glow2),transparent 55%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--s6)}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+  background:var(--topbar);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1280px;margin:0 auto;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:13px;min-width:0}
+.logo{width:42px;height:42px;border-radius:12px;flex:none;
+  background:var(--grad-brand);display:grid;place-items:center;
+  font-weight:800;color:var(--bg-void);font-size:18px;box-shadow:var(--shadow-glow-live)}
+.brand h1{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+.brand p{font-size:var(--fs-caption);color:var(--muted);font-weight:500}
+.nav-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:7px;font-size:var(--fs-caption);font-weight:600;
+  padding:7px 13px;border-radius:var(--r-pill);border:1px solid var(--line2);color:var(--muted);background:var(--hover)}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--live);box-shadow:0 0 0 3px rgba(52,225,196,.18)}
+.pill a{color:var(--acc);text-decoration:none}
+.ghbtn{color:var(--tx);text-decoration:none}
+.ghbtn:hover{color:var(--acc)}
+
+/* Hero */
+.hero{padding:46px 0 14px}
+.eyebrow{font-family:var(--font-ui);font-size:var(--fs-caption);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--live);margin-bottom:14px}
+.hero h2{font-family:var(--font-display);font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.08;max-width:18ch}
+.hero h2 .grad{background:linear-gradient(120deg,var(--live),var(--ref) 70%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin-top:16px;color:var(--muted);max-width:62ch;font-size:16px}
+
+/* KPI grid */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);margin:34px 0 10px}
+.kpi{background:var(--grad-panel);border:1px solid var(--line);
+  border-radius:var(--r-card);padding:var(--s6);position:relative;overflow:hidden;
+  box-shadow:var(--shadow-card);
+  transition:transform var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease)}
+.kpi::before{content:"";position:absolute;inset:0;background:var(--grad-shine);pointer-events:none;border-radius:inherit}
+.kpi:hover{transform:translateY(-3px);border-color:var(--line2);box-shadow:var(--shadow-hover)}
+.kpi::after{content:"";position:absolute;inset:0 0 auto 0;height:3px;
+  background:linear-gradient(90deg,var(--live),var(--ref));opacity:0;transition:opacity var(--dur-base) var(--ease)}
+.kpi:hover::after{opacity:.85}
+/* Block 2 — 3 niveles por contraste: eyebrow (font-ui uppercase tracking .08em --text-lo, legible por
+   contraste no por tamaño), dato primario (mono tabular grande --text-hi), referencia con aire (1.5). */
+.kpi .lab{font-family:var(--font-ui);font-size:var(--fs-kpi-lab);text-transform:uppercase;letter-spacing:.08em;color:var(--text-lo);font-weight:600;display:flex;align-items:center;gap:var(--s2)}
+.kpi .val{font-family:var(--font-data);font-variant-numeric:tabular-nums;font-size:32px;font-weight:700;letter-spacing:-.02em;margin-top:var(--s2);line-height:1;color:var(--tx)}
+.kpi .sub{font-size:var(--fs-body);color:var(--dim);margin-top:var(--s3);line-height:1.5}
+.kpi .ic{font-size:18px;opacity:.95;line-height:1}
+/* Semantic value color */
+.kpi .val.is-critical{color:var(--alert)}
+.kpi .val.is-warning{color:var(--warn)}
+.kpi .val.is-good{color:var(--live)}
+.kpi .val.is-neutral{color:var(--ref)}
+/* Border tint by state */
+.kpi.k-critical{border-color:color-mix(in srgb,var(--alert) 45%,var(--line))}
+.kpi.k-warning{border-color:color-mix(in srgb,var(--warn) 40%,var(--line))}
+.kpi.k-good{border-color:color-mix(in srgb,var(--live) 38%,var(--line))}
+
+/* Sections */
+section.block{padding:30px 0}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;flex-wrap:wrap}
+.sec-head h3{font-family:var(--font-display);font-size:21px;font-weight:700;letter-spacing:-.02em}
+.sec-head .tag{font-size:var(--fs-caption);color:var(--live);font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.sec-head .tag.live{color:var(--live);display:inline-flex;align-items:center;gap:7px}
+.livedot{width:8px;height:8px;border-radius:50%;background:var(--live);box-shadow:0 0 0 0 rgba(52,225,196,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,225,196,.5)}70%{box-shadow:0 0 0 9px rgba(52,225,196,0)}100%{box-shadow:0 0 0 0 rgba(52,225,196,0)}}
+.sec-desc{color:var(--muted);max-width:74ch;margin-bottom:var(--s5);font-size:14.5px}
+
+.grid{display:grid;gap:var(--s4)}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:2fr 1fr}
+.card{background:var(--grad-panel);border:1px solid var(--line);
+  border-radius:var(--r-card);padding:var(--s5) var(--s5) var(--s3);
+  box-shadow:var(--shadow-card);position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;inset:0;background:var(--grad-shine);pointer-events:none;border-radius:inherit}
+.card h4{font-family:var(--font-display);font-size:var(--fs-title);font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.card .hint{font-size:12.5px;color:var(--dim);font-weight:500;margin-top:3px;margin-bottom:6px}
+.chart{width:100%;height:330px}
+.chart.tall{height:420px}
+.chart.heat{height:460px}
+.chart.xl{height:540px}
+.chart.map{height:580px;background:var(--surface-1);border-radius:var(--r-control)}
+
+/* Footer / methodology */
+.method{background:var(--grad-panel);border:1px solid var(--line);border-radius:var(--r-card);padding:26px;margin:18px 0 8px;box-shadow:var(--shadow-card)}
+.method h3{font-family:var(--font-display);font-size:18px;margin-bottom:14px}
+.method dl{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 28px}
+.method dt{font-weight:700;color:var(--tx);font-size:14px;margin-bottom:3px}
+.method dd{color:var(--muted);font-size:var(--fs-body)}
+.note{display:flex;gap:10px;align-items:flex-start;margin-top:16px;padding:13px 15px;border-radius:var(--r-control);
+  background:var(--warn-tint);border:1px solid var(--warn-border);font-size:var(--fs-body);color:var(--warn-text)}
+footer{border-top:1px solid var(--line);padding:26px 0 50px;color:var(--dim);font-size:var(--fs-caption);text-align:center}
+footer a{color:var(--acc);text-decoration:none}
+.loading{color:var(--dim);font-size:var(--fs-caption);padding:40px;text-align:center}
+
+/* ── Phase 2: "Pulso del sistema" gradient accent ── */
+.sec-head::before{content:"";display:block;width:48px;height:3px;border-radius:2px;
+  background:var(--grad-brand);margin-bottom:var(--s2);opacity:.7}
+
+/* ── Phase 5: Accessibility — focus-visible rings ── */
+:focus-visible{outline:2px solid var(--live);outline-offset:3px;border-radius:4px}
+button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--live);outline-offset:2px}
+
+/* ── Phase 5: Performance — contain on heavy items ── */
+.card,.kpi{contain:layout style}
+.chart{contain:strict}
+
+@media(max-width:1000px){.kpis{grid-template-columns:repeat(2,1fr)}.g2,.g3{grid-template-columns:1fr}.method dl{grid-template-columns:1fr}}
+@media(max-width:560px){.kpis{grid-template-columns:1fr}.wrap{padding:0 var(--s4)}.nav{padding:12px 16px}}
+
+/* ═══ Tema claro INSTITUCIONAL — ajustes de componente (acento azul coherente, sin neón) ═══
+   Solo [data-theme=light]; el modo oscuro (centro de mando) queda intacto. Especificidad mayor
+   que las reglas inline de la comuna-bar, así que ganan sin !important. */
+:root[data-theme="light"] .comuna-bar .ctab.active{background:var(--live-tint);color:var(--live);border-color:var(--live-border);box-shadow:inset 0 -2px 0 var(--live)}
+:root[data-theme="light"] .comuna-bar .ctab.special.active{border-color:var(--live)}
+/* punto "en vivo": estático con anillo azul suave (institucional = calmo, sin pulso neón) */
+:root[data-theme="light"] .livedot{animation:none;box-shadow:0 0 0 3px var(--live-tint)}
+:root[data-theme="light"] .pill .dot{box-shadow:0 0 0 3px var(--live-tint)}
