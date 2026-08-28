@@ -123,6 +123,7 @@
   --ch-grid: var(--line-soft);
   --ch-axis: var(--text-lo);
   --ch-tip:  var(--surface-2);
+  --ch-line: rgba(35,49,82,.55);   /* línea de eje tenue en charts */
   --line2:   var(--line);
   --radius:  var(--r-card);
   --radius-sm: var(--r-control);
@@ -183,6 +184,7 @@
   --ch-grid: #EDF1F6;
   --ch-axis: #7C8AA0;
   --ch-tip:  #FFFFFF;
+  --ch-line: rgba(124,138,160,.35);
 }
 
 /* ─── Tema de cliente DEMO — "Ámbar / Grafito" (dark cálido, acento oro): prueba de que la
@@ -219,7 +221,7 @@
   --grad-shine: linear-gradient(180deg, rgba(255,255,255,.04) 0%, transparent 40%);
   --shadow-glow-live: 0 0 20px -4px rgba(224,168,54,.25);
   /* Charts */
-  --ch-grid: var(--line-soft);  --ch-axis: var(--text-lo);  --ch-tip: var(--surface-2);
+  --ch-grid: var(--line-soft);  --ch-axis: var(--text-lo);  --ch-tip: var(--surface-2);  --ch-line: rgba(58,52,43,.6);
 }
 
 /* ─── Reduced motion ─── */

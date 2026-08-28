@@ -1,14 +1,21 @@
-/* Config de ciudad — shell compartido (_motor/dashboard_kit). live=true: feed GTFS-RT vía capturador Cloud Run. */
+/* Config LAB (white-label demo) — MISMOS datos de Temuco, identidad de marca distinta ("PULSO").
+   El deploy toma la data de Temuco vía data_src; el tema lo fija el registro (cliente-a). */
 window.CITY = {
   slug: "temuco",
   nombre: "Temuco",
-  sigla: "TE",
+  sigla: "PU",
   lat0: -38.7432, lon0: -72.6074,
   comunas: ["Temuco", "Padre Las Casas"],
   comunasGeojson: "comunas_temuco.geojson",
   live: true,
   liveBase: "https://storage.googleapis.com/temuco-transporte-live/",
-  demanda: true,                        // 3er modo: validaciones del medio de pago (abordajes)
-  repo: "transportepublicoTemuco",
-  voz: {"ejeSing": "eje", "ejePlur": "ejes", "EjePlur": "Ejes"},
+  demanda: true,
+  repo: "prueba_grafica",
+  voz: {"ejeSing": "corredor", "ejePlur": "corredores", "EjePlur": "Corredores"},
+  // ── Marca white-label (opcional; si falta, el shell usa "Centro de Mando / Transporte X") ──
+  marca: "PULSO Movilidad",
+  tbTitle: "PULSO · Temuco",
+  heroTitle: "MONITOR DE FLOTA<br>EN TIEMPO REAL",
+  eyebrow: "PULSO · Inteligencia de Movilidad",
+  heroSub: "Operación del transporte público de Temuco medida sobre GPS en vivo — flota, velocidad, cobertura y cumplimiento en una sola vista.",
 };
