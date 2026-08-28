@@ -32,7 +32,7 @@ CITY.comunas=CITY.comunas||[]; CITY.comunasGeojson=CITY.comunasGeojson||"comunas
 CITY.live=!!CITY.live; CITY.liveBase=CITY.liveBase||""; CITY.voz=CITY.voz||{ejeSing:"eje",ejePlur:"ejes",EjePlur:"Ejes"};
 const _cap=t=>t?t.charAt(0).toUpperCase()+t.slice(1):t;
 const _liveUrl=n=> (CITY.live&&CITY.liveBase?CITY.liveBase:"data/")+n;
-const J = n => fetch(`data/${n}?v=224`).then(r=>{if(!r.ok)throw 0;return r.json();});
+const J = n => fetch(`data/${n}?v=225`).then(r=>{if(!r.ok)throw 0;return r.json();});
 // reloj en vivo (fecha + hora Chile) en el header — útil para las capturas
 function tickReloj(){
   const el = document.getElementById("hdr-reloj-txt"); if(!el) return;
@@ -441,6 +441,12 @@ function lineaSectionHeaders(on){
       h.style.display="";
     } else if(h){ h.style.display="none"; }
   });
+  // Forzar el ORDEN visual: en el DOM demanda-view viene ANTES que normal-view; para la vista de línea
+  // (oferta arriba, demanda abajo) reubicamos [h2, demanda-view] justo después de normal-view.
+  if(on){
+    const nv=$("normal-view"), dv=$("demanda-view"), h1=$("lsh-normal-view"), h2=$("lsh-demanda-view");
+    if(nv&&dv&&nv.parentElement){ if(h1) nv.parentElement.insertBefore(h1,nv); nv.after(h2||dv, dv); }
+  }
 }
 // Vista de LÍNEA: iguala el alto del mapa a la suma de las tarjetas de la columna derecha
 // (velocidad a lo largo del ciclo + equidad de flota). En otras vistas o en móvil, usa el alto por clase.
