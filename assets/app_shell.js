@@ -32,7 +32,7 @@ CITY.comunas=CITY.comunas||[]; CITY.comunasGeojson=CITY.comunasGeojson||"comunas
 CITY.live=!!CITY.live; CITY.liveBase=CITY.liveBase||""; CITY.voz=CITY.voz||{ejeSing:"eje",ejePlur:"ejes",EjePlur:"Ejes"};
 const _cap=t=>t?t.charAt(0).toUpperCase()+t.slice(1):t;
 const _liveUrl=n=> (CITY.live&&CITY.liveBase?CITY.liveBase:"data/")+n;
-const J = n => fetch(`data/${n}?v=226`).then(r=>{if(!r.ok)throw 0;return r.json();});
+const J = n => fetch(`data/${n}?v=227`).then(r=>{if(!r.ok)throw 0;return r.json();});
 // reloj en vivo (fecha + hora Chile) en el header — útil para las capturas
 function tickReloj(){
   const el = document.getElementById("hdr-reloj-txt"); if(!el) return;
@@ -1457,10 +1457,16 @@ function infraStrip(){
   const proy=(INFRAE.total_km-INFRAE.km_operacion);
   const kel=$("infra-kpis"); kel.className="";   // grilla auto-fit por estilo (xl:grid-cols-8 no está en el tw.css compilado)
   kel.style.display="grid"; kel.style.gap="12px"; kel.style.gridTemplateColumns="repeat(auto-fit,minmax(135px,1fr))";
-  const fijos=[
+  // Data-driven: los KPIs "Red plan / En operación / En proyecto" solo tienen sentido si HAY obras en proyecto
+  // (el plan difiere de lo que ya opera). Sin proyecto (p.ej. Temuco: plan=operación, 0 en proyecto) las tres
+  // cifras son redundantes y confunden → se colapsan a un único indicador honesto.
+  const hayPlan = proy > 0.1;
+  const fijos = hayPlan ? [
     ["Red plan",INFRAE.total_km,"km",cssv("--text-hi")],
     ["En operación",INFRAE.km_operacion,"km",cssv("--good")],
     ["En proyecto",km1(proy),"km",cssv("--warning")],
+  ] : [
+    ["Red con transporte público",INFRAE.km_operacion,"km",cssv("--good")],
   ];
   if(SHOW_EFECTIVOS) fijos.push(["Ejes efectivos",INFRAE.km_efectivo||0,"km",IEFECT]);
   // km por tipo de infraestructura (solo los presentes), mismos colores que el mapa

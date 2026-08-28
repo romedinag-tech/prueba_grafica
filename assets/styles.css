@@ -201,6 +201,13 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 :root[data-theme^="cliente-"] #kpis2 .kpi .val,
 :root[data-theme^="cliente-"] #infra-kpis .kpi .val,
 :root[data-theme^="cliente-"] #dem-kpis .kpi .val{font-size:26px}
+/* ── Vista INFRA: el strip de KPIs va HORIZONTAL bajo el mapa (no como riel de 2 columnas). #infra-view pasa a
+   columna → primero el contenido (mapa+detalle), luego el strip auto-fit a lo ancho. En ciudades sin plan de
+   corredores (Temuco) queda un resumen fino, no un riel casi vacío. ── */
+:root[data-theme^="cliente-"] #infra-view{flex-direction:column}
+:root[data-theme^="cliente-"] #infra-view .view-content{order:1}
+:root[data-theme^="cliente-"] #infra-kpis{order:2;flex:0 0 auto;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
 
 /* ── Cara de cliente: campanil (Conce) fuera + toggle claro/oscuro fuera (white-label = 1 marca fija;
    togglear rompe el re-layout, cuyo CSS está scopeado al tema). ── */
