@@ -192,6 +192,7 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 /* ── Estética reloj CASIO antiguo: números 7-segmentos en ORO con glow LCD ámbar,
    campanil (Conce) fuera, título largo ajustado. VT323/DSEG7 vienen de tokens.css. ── */
 :root[data-theme="cliente-a"] .kpi .val{color:var(--live);text-shadow:0 0 10px rgba(224,168,54,.40)}
+:root[data-theme="cliente-a"] .kpi .g-val{fill:var(--live);filter:drop-shadow(0 0 5px rgba(224,168,54,.45))}
 :root[data-theme="cliente-a"] .tb-logo{display:none}
 :root[data-theme="cliente-a"] #tb-title{font-size:clamp(16px,1.55vw,24px);line-height:1.08;letter-spacing:.01em}
 :root[data-theme="cliente-a"] .tb-sub{letter-spacing:.1em}
