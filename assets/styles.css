@@ -194,8 +194,14 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 :root[data-theme="cliente-a"] .kpi .val{color:var(--live);text-shadow:0 0 10px rgba(224,168,54,.40)}
 :root[data-theme="cliente-a"] .kpi .g-val{fill:var(--live);filter:drop-shadow(0 0 5px rgba(224,168,54,.45))}
 :root[data-theme="cliente-a"] .tb-logo{display:none}
-:root[data-theme="cliente-a"] #tb-title{font-size:clamp(16px,1.55vw,24px);line-height:1.08;letter-spacing:.01em}
-:root[data-theme="cliente-a"] .tb-sub{letter-spacing:.1em}
+:root[data-theme="cliente-a"] #tb-title{font-size:clamp(16px,1.55vw,24px);line-height:1.08;letter-spacing:.01em;
+  color:var(--live);text-shadow:0 0 12px rgba(224,168,54,.45)}
+:root[data-theme="cliente-a"] .tb-sub{letter-spacing:.1em;color:var(--warn)}
+/* Neón naranja emisivo (dashboard-pro) en encabezados de widget/sección y el modo activo del nav */
+:root[data-theme="cliente-a"] .widget-h h3,
+:root[data-theme="cliente-a"] .card h4,
+:root[data-theme="cliente-a"] .sec-head h3{color:var(--live);text-shadow:0 0 8px rgba(224,168,54,.28)}
+:root[data-theme="cliente-a"] #modo-switch button.on{text-shadow:0 0 8px rgba(224,168,54,.5)}
 /* en angosto: el riel vuelve a banda superior (columna) */
 @media(max-width:1100px){
   :root[data-theme="cliente-a"] #normal-view,

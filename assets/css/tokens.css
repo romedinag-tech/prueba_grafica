@@ -194,12 +194,12 @@
   --bg-void:   #12100E;  --bg-base:   #1A1714;
   --surface-1: #221E19;  --surface-2: #2B2620;
   --line:      #3A342B;  --line-soft: #241F19;
-  /* Texto — marfil cálido (text-lo aclarado a #9C9280 para pasar contraste AA 4.5 sobre las tarjetas) */
-  --text-hi:   #F4EEE3;  --text-mid:  #B6AB98;  --text-lo: #9C9280;
-  /* Tipografía tipo reloj CASIO antiguo: DSEG7 (7-segmentos) en los NÚMEROS, VT323 (LCD retro legible) en el resto */
-  --font-display: 'VT323', ui-monospace, monospace;
-  --font-ui:      'VT323', ui-monospace, monospace;
-  --font-data:    'DSEG7', 'VT323', ui-monospace, monospace;
+  /* Texto — ámbar tipo LCD neón (primario ámbar claro; secundarios cálidos). text-lo pasa AA sobre tarjeta. */
+  --text-hi:   #F3DBA0;  --text-mid:  #B6AB98;  --text-lo: #9C9280;
+  /* Tipografía de reloj digital SEGMENTADO tipo CASIO: DSEG14 (14-seg, letras) en el texto, DSEG7 (7-seg) en números */
+  --font-display: 'DSEG14', 'VT323', ui-monospace, monospace;
+  --font-ui:      'DSEG14', 'VT323', ui-monospace, monospace;
+  --font-data:    'DSEG7', 'DSEG14', ui-monospace, monospace;
   /* Señales — oro como acento primario (reemplaza el teal) */
   --live:  #E0A836;  --ref:  #7FA8C9;  --warn: #E8944A;  --alert: #E5604D;
   /* Status */
