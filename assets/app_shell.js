@@ -32,7 +32,7 @@ CITY.comunas=CITY.comunas||[]; CITY.comunasGeojson=CITY.comunasGeojson||"comunas
 CITY.live=!!CITY.live; CITY.liveBase=CITY.liveBase||""; CITY.voz=CITY.voz||{ejeSing:"eje",ejePlur:"ejes",EjePlur:"Ejes"};
 const _cap=t=>t?t.charAt(0).toUpperCase()+t.slice(1):t;
 const _liveUrl=n=> (CITY.live&&CITY.liveBase?CITY.liveBase:"data/")+n;
-const J = n => fetch(`data/${n}?v=227`).then(r=>{if(!r.ok)throw 0;return r.json();});
+const J = n => fetch(`data/${n}?v=228`).then(r=>{if(!r.ok)throw 0;return r.json();});
 // reloj en vivo (fecha + hora Chile) en el header — útil para las capturas
 function tickReloj(){
   const el = document.getElementById("hdr-reloj-txt"); if(!el) return;
@@ -1604,7 +1604,11 @@ function renderInfraPlan(){
     $("infra-narr").innerHTML=`<b>Flujo de buses por eje</b> (pico horario, histórico laborable). El <b>ancho</b> de la cinta es proporcional al flujo; se dibuja <b>a un lado por sentido</b> — un solo lado = una vía, ambos = bidireccional. Clic para el detalle.`;
   } else {
     lg.innerHTML=Object.entries(ITIPO).filter(([k])=>k!=="—" && (tAgg[k]||0)>0.05).map(([k,c])=>`<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)"><i class="ic-dot" style="background:${c}"></i>${k}</span>`).join("")+`<span style="font-size:12px;color:var(--muted)">╌ en proyecto</span>`+(EF.length?`<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)"><i class="ic-dot" style="background:${IEFECT}"></i>Efectivo (real)</span>`:"");
-    $("infra-narr").innerHTML=`<b>Plan de infraestructura declarada</b>: ${GA.length} ejes (${INFRAE.km_operacion} km en operación · ${(INFRAE.total_km-INFRAE.km_operacion).toFixed(1)} en proyecto). Color por <b>tipo</b> de infraestructura; punteado = proyectado.`+(EF.length?` En <span style="color:${IEFECT}">magenta</span>, los <b>ejes efectivos</b>, ${INFRAE.km_efectivo||0} km.`:"");
+    { const _p=(INFRAE.total_km-INFRAE.km_operacion);
+      $("infra-narr").innerHTML=(_p>0.1
+        ? `<b>Plan de infraestructura declarada</b>: ${GA.length} ejes (${INFRAE.km_operacion} km en operación · ${_p.toFixed(1)} en proyecto). Color por <b>tipo</b> de infraestructura; punteado = proyectado.`
+        : `<b>Red con transporte público</b>: ${GA.length} ejes · ${INFRAE.km_operacion} km. Color por <b>tipo</b> de infraestructura.`
+      )+(EF.length?` En <span style="color:${IEFECT}">magenta</span>, los <b>ejes efectivos</b>, ${INFRAE.km_efectivo||0} km.`:""); }
   }
   $("infra-list-title").textContent="Ejes del plan"; $("infra-list-hint").textContent=`${GA.length} ejes · ${INFRAE.total_km} km`;
   // LISTA: mismo formato que las líneas del modo Operación (.litem/.ln/.nm), agrupada por nombre → cada fila = un link a la ficha del eje.
