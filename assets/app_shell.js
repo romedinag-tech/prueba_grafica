@@ -32,7 +32,7 @@ CITY.comunas=CITY.comunas||[]; CITY.comunasGeojson=CITY.comunasGeojson||"comunas
 CITY.live=!!CITY.live; CITY.liveBase=CITY.liveBase||""; CITY.voz=CITY.voz||{ejeSing:"eje",ejePlur:"ejes",EjePlur:"Ejes"};
 const _cap=t=>t?t.charAt(0).toUpperCase()+t.slice(1):t;
 const _liveUrl=n=> (CITY.live&&CITY.liveBase?CITY.liveBase:"data/")+n;
-const J = n => fetch(`data/${n}?v=228`).then(r=>{if(!r.ok)throw 0;return r.json();});
+const J = n => fetch(`data/${n}?v=229`).then(r=>{if(!r.ok)throw 0;return r.json();});
 // reloj en vivo (fecha + hora Chile) en el header — útil para las capturas
 function tickReloj(){
   const el = document.getElementById("hdr-reloj-txt"); if(!el) return;
@@ -225,6 +225,16 @@ function initCityChrome(){
       '<path class="wv wv1" fill="none" d="M0 14 H16 L19 4 L22 14 H40 M40 14 H56 L59 4 L62 14 H80"><animateTransform attributeName="transform" type="translate" from="0 0" to="-40 0" dur="1.4s" repeatCount="indefinite"/></path>'+
       '<path class="wv wv2" fill="none" d="M0 10 H7 L9 17 L11 10 H40 M40 10 H47 L49 17 L51 10 H80"><animateTransform attributeName="transform" type="translate" from="0 0" to="-40 0" dur="2.1s" repeatCount="indefinite"/></path>'+
       '</svg>';
+  }
+  // Cara GORE Biobío (cliente-gore): emblema oficial del Gobierno Regional en el header + co-marca institucional.
+  if(document.documentElement.dataset.theme==="cliente-gore"){
+    const hc=document.querySelector(".hdr-center");
+    if(hc && !hc.querySelector(".gore-emblem")){
+      const img=document.createElement("img");
+      img.className="gore-emblem"; img.src="assets/gore_emblema.png"; img.alt="Gobierno Regional del Biobío";
+      hc.insertBefore(img, hc.firstChild);
+    }
+    const sub=document.querySelector(".tb-sub"); if(sub) sub.textContent="Gobierno Regional del Biobío · Región del Biobío";
   }
 }
 function buildComunaTabs(){

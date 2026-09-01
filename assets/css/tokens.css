@@ -267,6 +267,49 @@
   --ch-grid: rgba(20,33,46,.08);  --ch-axis: #6B7B8C;  --ch-tip: #FFFFFF;  --ch-line: #1D6FB8;
 }
 
+/* ─── Cara CLIENTE "GORE Biobío" — modo CLARO institucional (data-theme="cliente-gore", alias ?theme=gore).
+   Identidad del Gobierno Regional del Biobío MEDIDA de gorebiobio.cl: azul institucional #002A5A (primario,
+   14.2:1 sobre blanco) + verde de marca #6DAB24 (acento/marcas; #4E7D1A su versión de texto AA). Fondos blanco/
+   gris muy claro. Paleta completa + AA verificada por agente de diseño. NO lleva la fuente retro ni el neón de
+   PULSO (esos son [data-theme^="cliente-a"]); título limpio y serio. ─── */
+:root[data-theme="cliente-gore"] {
+  /* Superficies (claras, institucionales) */
+  --bg-void:    #E9ECF0;  --bg-base:    #F5F5F5;
+  --surface-1:  #FFFFFF;  --surface-2:  #F0F2F5;
+  --line:       #DDE1E6;  --line-soft:  #EBEEF1;
+  /* Texto (text-lo #737373 = 4.74:1 sobre blanco, AA) */
+  --text-hi:    #14243D;  --text-mid:   #575757;  --text-lo: #737373;
+  /* Señales — azul institucional primario */
+  --live:  #002A5A;  --ref:  #6B7785;  --warn: #D68A2B;  --alert: #B80F0F;
+  /* Status (verde de texto #4E7D1A = 4.92:1) */
+  --good:#4E7D1A; --warning:#C77D18; --critical:#B80F0F; --nodata:#9AA3AB;
+  /* Serie (lidera azul y verde de marca; todas ≥3:1 sobre blanco) */
+  --c1:#002A5A; --c2:#4E7D1A; --c3:#C4611A; --c4:#146C86; --c5:#8A1F5E;
+  --c6:#B80F0F; --c7:#5B4B9E; --c8:#1F7A4D; --c9:#A6851C; --c10:#4A5A6A;
+  /* Dominio */
+  --infra-corredor:#002A5A; --infra-pistabus:#146C86; --infra-exclusiva:#4E7D1A;
+  --infra-mixto:#C4611A; --infra-none:#9AA3AB; --infra-efectivo:#6DAB24;
+  --nse-bajo:#B5651D; --nse-medio:#6DAB24; --nse-alto:#002A5A;
+  /* Bridge (rgba de --live = 0,42,90) */
+  --topbar: rgba(255,255,255,.92);  --hover: rgba(0,42,90,.06);  --chip: rgba(0,42,90,.08);
+  --glow1: rgba(0,42,90,.14);  --glow2: rgba(109,171,36,.16);
+  --live-tint: rgba(0,42,90,.08);  --live-border: rgba(0,42,90,.35);
+  --alert-tint: rgba(184,15,15,.10);  --warn-tint: rgba(214,138,43,.14);
+  --warn-border: rgba(214,138,43,.45);  --warn-text: #8A5A12;
+  --ico-bg: rgba(0,42,90,.06);  --subtle: rgba(20,36,61,.55);
+  --ref-tint: rgba(87,87,87,.10);  --track: rgba(20,36,61,.10);
+  /* Marca: azul → verde */
+  --grad-brand: linear-gradient(135deg, #002A5A 0%, #6DAB24 100%);
+  --grad-panel: linear-gradient(180deg, #FFFFFF 0%, #F5F5F5 100%);
+  --grad-shine: linear-gradient(180deg, rgba(255,255,255,.60) 0%, rgba(255,255,255,0) 100%);
+  /* Sombras (planas) */
+  --shadow-card: 0 1px 2px rgba(20,36,61,.06), 0 1px 3px rgba(20,36,61,.10);
+  --shadow-widget: 0 1px 3px rgba(20,36,61,.08);
+  --shadow-hover: 0 4px 12px rgba(20,36,61,.12);  --shadow-glow-live: 0 0 0 3px rgba(0,42,90,.15);
+  /* Charts */
+  --ch-grid: #E4E7EB;  --ch-axis: #8A9199;  --ch-tip: #10233D;  --ch-line: #002A5A;
+}
+
 /* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
   :root {
